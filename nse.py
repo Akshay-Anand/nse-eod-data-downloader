@@ -48,16 +48,17 @@ def DayCode(d):
 
 site = "https://www.nseindia.com"
 
-
-
-
+def exists(path):
+    r = requests.head(path)
+    return r.status_code == requests.codes.ok
 
 for year in range(2016, 2016 + 1):
     for month in range(1, 2):
         for day in range(15, FindDays(month, year) + 1):
             path = "/content/historical/DERIVATIVES/" + str(year) + "/" + MonthCode(month) + "/fo" + DayCode(day) + MonthCode(month) + str(year) + "bhav.csv.zip"
             url = site + path
-            
+            if exists(url) == False:
+                continue
             print (url)
             req = requests.get(url)
             fileName = "D:\\" + str(day) + "-" + str(month) + "-" + str(year) + ".zip"
