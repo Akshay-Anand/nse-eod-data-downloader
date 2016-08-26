@@ -1,5 +1,5 @@
 import requests
-
+import os
 
 
 def FindDays(month, year):
@@ -47,10 +47,16 @@ def DayCode(d):
 #url = 'https://www.nseindia.com/content/historical/DERIVATIVES/2016/AUG/fo10AUG2016bhav.csv.zip'
 
 site = "https://www.nseindia.com"
+home = "D:\\"
 
 def exists(path):
     r = requests.head(path)
     return r.status_code == requests.codes.ok
+    
+def directory(f)
+    d = os.path.dirname(f)
+    if not os.path.exists(d):
+        os.makedirs(d)
 
 for year in range(2016, 2016 + 1):
     for month in range(1, 2):
@@ -61,7 +67,8 @@ for year in range(2016, 2016 + 1):
                 continue
             print (url)
             req = requests.get(url)
-            fileName = "D:\\" + str(day) + "-" + str(month) + "-" + str(year) + ".zip"
+            fileName = home + str(year) + "\\" + MonthCode(month) + "-" + str(year) + "\\" + str(day) + "-" + str(month) + "-" + str(year) + ".zip"
+            directory(fileName)
             file = open(fileName, 'wb')
             for chunk in req.iter_content(100000):
                 file.write(chunk)
