@@ -53,7 +53,7 @@ def exists(path):
     r = requests.head(path)
     return r.status_code == requests.codes.ok
     
-def directory(f)
+def directory(f):
     d = os.path.dirname(f)
     if not os.path.exists(d):
         os.makedirs(d)
