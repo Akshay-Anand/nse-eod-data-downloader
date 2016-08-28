@@ -1,5 +1,6 @@
 import requests
 import os
+from datetime import datetime, timedelta
 
 
 def FindDays(month, year):
@@ -49,27 +50,36 @@ def DayCode(d):
 site = "https://www.nseindia.com"
 home = "D:\\"
 
+
 def exists(path):
     r = requests.head(path)
     return r.status_code == requests.codes.ok
-    
+
 def directory(f):
     d = os.path.dirname(f)
     if not os.path.exists(d):
         os.makedirs(d)
 
-for year in range(2016, 2016 + 1):
-    for month in range(1, 2):
-        for day in range(15, FindDays(month, year) + 1):
-            path = "/content/historical/DERIVATIVES/" + str(year) + "/" + MonthCode(month) + "/fo" + DayCode(day) + MonthCode(month) + str(year) + "bhav.csv.zip"
-            url = site + path
-            if exists(url) == False:
-                continue
-            print (url)
-            req = requests.get(url)
-            fileName = home + str(year) + "\\" + MonthCode(month) + "-" + str(year) + "\\" + str(day) + "-" + str(month) + "-" + str(year) + ".zip"
-            directory(fileName)
-            file = open(fileName, 'wb')
-            for chunk in req.iter_content(100000):
-                file.write(chunk)
-            file.close()
+start_date = input("Enter start date (dd/mm/yyyy): ")
+end_date = input("Enter end date (dd/mm/yyyy): ")
+
+sdate = datetime.strptime(start_date, '%d-%m-%y')
+edate = datetime.strptime(end_date, '%d-%m-%y')
+
+delta = timedelta(days=1)
+
+while sdate <= edate:
+    path = "/content/historical/DERIVATIVES/" + str(sdate.year) + "/" + MonthCode(sdate.month) + "/fo" + DayCode(sdate.day) + MonthCode(sdate.month) + str(sdate.year) + "bhav.csv.zip"
+    url = site + path
+    if exists(url) == False:
+        sdate += delta
+        continue
+    print (url)
+    req = requests.get(url)
+    fileName = home + str(sdate.year) + "\\" + MonthCode(sdate.month) + "-" + str(sdate.year) + "\\" + str(sdate.day) + "-" + str(sdate.month) + "-" + str(sdate.year) + ".zip"
+    directory(fileName)
+    file = open(fileName, 'wb')
+    for chunk in req.iter_content(100000):
+        file.write(chunk)
+    file.close()
+    sdate += delta
