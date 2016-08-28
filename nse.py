@@ -2,17 +2,6 @@ import requests
 import os
 from datetime import datetime, timedelta
 
-
-def FindDays(month, year):
-    if month == 1 or month == 3 or month == 5 or month == 7 or month == 8 or month == 10 or month == 12:
-        return 31
-    if month == 4 or month == 6 or month == 9 or month == 11:
-        return 30
-    if year % 4 == 0:
-        return 29
-    else:
-        return 28
-
 def MonthCode(m):
     if m == 1:
         return "JAN"
@@ -47,9 +36,8 @@ def DayCode(d):
 
 #url = 'https://www.nseindia.com/content/historical/DERIVATIVES/2016/AUG/fo10AUG2016bhav.csv.zip'
 
-site = "https://www.nseindia.com"
+site = "https://nseindia.com"
 home = "D:\\"
-
 
 def exists(path):
     r = requests.head(path)
@@ -60,8 +48,8 @@ def directory(f):
     if not os.path.exists(d):
         os.makedirs(d)
 
-start_date = input("Enter start date (dd/mm/yyyy): ")
-end_date = input("Enter end date (dd/mm/yyyy): ")
+start_date = input("Enter start date (dd-mm-yy): ")
+end_date = input("Enter end date (dd-mm-yy): ")
 
 sdate = datetime.strptime(start_date, '%d-%m-%y')
 edate = datetime.strptime(end_date, '%d-%m-%y')
@@ -69,9 +57,11 @@ edate = datetime.strptime(end_date, '%d-%m-%y')
 delta = timedelta(days=1)
 
 while sdate <= edate:
+    print(sdate)
     path = "/content/historical/DERIVATIVES/" + str(sdate.year) + "/" + MonthCode(sdate.month) + "/fo" + DayCode(sdate.day) + MonthCode(sdate.month) + str(sdate.year) + "bhav.csv.zip"
     url = site + path
     if exists(url) == False:
+        print (url + " does not exist")
         sdate += delta
         continue
     print (url)
