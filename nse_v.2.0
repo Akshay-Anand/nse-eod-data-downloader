@@ -58,7 +58,7 @@ while sdate <= edate:
     path = "/content/historical/DERIVATIVES/" + str(sdate.year) + "/" + MonthCode(sdate.month) + "/fo" + DayCode(sdate.day) + MonthCode(sdate.month) + str(sdate.year) + "bhav.csv.zip"
     url = site + path
     print (url)
-    req = requests.get(url,headers=headers,cookies=cookies,verify=False)
+    req = requests.get(url,headers=headers,cookies=cookies)
     if req.status_code == 200:
         fileName = home + str(sdate.year) + "\\" + MonthCode(sdate.month) + "-" + str(sdate.year) + "\\" + str(sdate.day) + "-" + str(sdate.month) + "-" + str(sdate.year) + ".zip"
         directory(fileName)
