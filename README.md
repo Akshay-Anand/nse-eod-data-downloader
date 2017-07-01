@@ -1,5 +1,5 @@
+# nse-eod-data-downloader<br>
 For Derivatives:<br>
-# nse-eod-data-downloader
 An automated script to download nse bhavcopy everyday in csv format.  
 Instructions:<br>
 1)Install Python 3.x<br> 
