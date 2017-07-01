@@ -11,6 +11,6 @@ Instructions:<br>
 <br>
 <br>
 For Equities:<br>
-1)Follow the same procedure as mentioned for Derivatives until step 2.
-2)Run nse-eq.v.1.0.py.
+1)Follow the same procedure as mentioned for Derivatives until step 2.<br>
+2)Run nse-eq.v.1.0.py.<br>
 3)Follow the instructions given by the program.
